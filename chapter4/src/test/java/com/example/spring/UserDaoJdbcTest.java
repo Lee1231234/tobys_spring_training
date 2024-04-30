@@ -1,31 +1,37 @@
 package com.example.spring;
 
 import com.example.spring.user.dao.UserDao;
+import com.example.spring.user.dao.UserDaoJdbc;
 import com.example.spring.user.domain.User;
-import com.mysql.cj.exceptions.MysqlErrorNumbers;
+import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
+import org.springframework.jdbc.support.SQLExceptionTranslator;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.dao.DuplicateKeyException;
 
+import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="/test-applicationContext.xml")
-public class UserDaoTest {
+public class UserDaoJdbcTest {
 	@Autowired
-	ApplicationContext context;
+	DataSource dataSource;
+	@Autowired
 	private UserDao dao;
 	private User user1;
 	private User user2;
@@ -34,7 +40,6 @@ public class UserDaoTest {
 	@Before
 	public void setUp() {
 
-		this.dao = context.getBean("userDao", UserDao.class);
 
 		this.user1 = new User("gyumee", "1", "springno1");
 		this.user2 = new User("leegw700", "2", "springno2");
@@ -111,6 +116,30 @@ public class UserDaoTest {
 		assertThat(user1.getId(), is(user2.getId()));
 		assertThat(user1.getName(), is(user2.getName()));
 		assertThat(user1.getPassword(), is(user2.getPassword()));
+	}
+
+	@Test(
+			expected = DuplicateKeyException.class
+	)
+	public void duplciateKey() {
+		this.dao.deleteAll();
+		this.dao.add(this.user1);
+		this.dao.add(this.user1);
+	}
+	@Test
+	public void sqlExceptionTranslate() {
+		this.dao.deleteAll();
+
+		try {
+			this.dao.add(this.user1);
+			this.dao.add(this.user1);
+		} catch (DuplicateKeyException var5) {
+			SQLException sqlEx = (SQLException)var5.getCause();
+			SQLExceptionTranslator set = new SQLErrorCodeSQLExceptionTranslator(this.dataSource);
+			DataAccessException transEx = set.translate((String)null, (String)null, sqlEx);
+			Assert.assertThat(transEx, CoreMatchers.is(DuplicateKeyException.class));
+		}
+
 	}
 //	int maxtry = MAX_RETRY;
 //	while(maxtry -- > 0){

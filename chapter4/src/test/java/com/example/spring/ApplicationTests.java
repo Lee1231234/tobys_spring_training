@@ -1,6 +1,6 @@
 package com.example.spring;
 
-import com.example.spring.user.dao.UserDao;
+import com.example.spring.user.dao.UserDaoJdbc;
 import com.example.spring.user.domain.User;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
@@ -8,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -21,7 +20,7 @@ class ApplicationTests {
 	@Test
 	public void andAndGet() throws SQLException {
 		ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
-		UserDao dao = context.getBean("userDao", UserDao.class);
+		UserDaoJdbc dao = context.getBean("userDao", UserDaoJdbc.class);
 
 		User user = new User();
 		user.setId("aaa");
