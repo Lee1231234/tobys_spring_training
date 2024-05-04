@@ -39,3 +39,8 @@ FAILURE: Build failed with an exception 오류
 
     오류메세지 확인후 처리가 가능한 오류라면 해결하고 아니면 구글링을 통해 해결방법을 찾아볼것.
 
+alter add 여러개
+![img.png](img.png)
+
+Test class should have exactly one public zero-argument constructord의 대한 에러가 생성됨
+이유가 뭐지 싶었는데 생각해보니까 인터페이스에서 받은 DAO를 수정한적이 없었음. 테이블의 컬럼이 5개가 되었는데 3개만 사용하니 제대로 작동하지 않은것.

@@ -1,7 +1,7 @@
 package com.example.spring;
 
 import com.example.spring.user.dao.UserDao;
-import com.example.spring.user.dao.UserDaoJdbc;
+import com.example.spring.user.domain.Level;
 import com.example.spring.user.domain.User;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
@@ -27,120 +26,144 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations="/test-applicationContext.xml")
+@ContextConfiguration(locations = "/test-applicationContext.xml")
 public class UserDaoJdbcTest {
-	@Autowired
-	DataSource dataSource;
-	@Autowired
-	private UserDao dao;
-	private User user1;
-	private User user2;
-	private User user3;
-
-	@Before
-	public void setUp() {
+    @Autowired
+    DataSource dataSource;
+    @Autowired
+    private UserDao dao;
+    private User user1;
+    private User user2;
+    private User user3;
 
 
-		this.user1 = new User("gyumee", "1", "springno1");
-		this.user2 = new User("leegw700", "2", "springno2");
-		this.user3 = new User("bumjin", "3", "springno3");
+    @Before
+    public void setUp() {
+        this.user1 = new User("gyumee", "박성철", "springno1", Level.BASIC, 1, 0);
+        this.user2 = new User("leegw700", "이길원", "springno2", Level.SILVER, 55, 10);
+        this.user3 = new User("bumjin", "박범진", "springno3", Level.GOLD, 100, 40);
+    }
 
-	}
-	@Test
-	public void andAndGet() throws SQLException {
+    @Test
+    public void andAndGet() throws SQLException {
 
-		dao.deleteAll();
-		assertThat(dao.getCount(), is(0));
+        dao.deleteAll();
+        assertThat(dao.getCount(), is(0));
 
-		dao.add(user1);
-		dao.add(user2);
-		assertThat(dao.getCount(), is(2));
+        dao.add(user1);
+        dao.add(user2);
+        assertThat(dao.getCount(), is(2));
 
-		User userget1 = dao.get(user1.getId());
-		assertThat(userget1.getName(), is(user1.getName()));
-		assertThat(userget1.getPassword(), is(user1.getPassword()));
+        User userget1 = dao.get(user1.getId());
+        assertThat(userget1.getName(), is(user1.getName()));
+        assertThat(userget1.getPassword(), is(user1.getPassword()));
 
-		User userget2 = dao.get(user2.getId());
-		assertThat(userget2.getName(), is(user2.getName()));
-		assertThat(userget2.getPassword(), is(user2.getPassword()));
-	}
+        User userget2 = dao.get(user2.getId());
+        assertThat(userget2.getName(), is(user2.getName()));
+        assertThat(userget2.getPassword(), is(user2.getPassword()));
+    }
 
-	@Test(expected= EmptyResultDataAccessException.class)
-	public void getUserFailure() throws SQLException {
-		dao.deleteAll();
-		assertThat(dao.getCount(), is(0));
+    @Test(expected = EmptyResultDataAccessException.class)
+    public void getUserFailure() throws SQLException {
+        dao.deleteAll();
+        assertThat(dao.getCount(), is(0));
 
-		dao.get("unknown_id");
-	}
-	@Test
-	public void count() throws SQLException {
-		dao.deleteAll();
-		assertThat(dao.getCount(), is(0));
+        dao.get("unknown_id");
+    }
 
-		dao.add(user1);
-		assertThat(dao.getCount(), is(1));
+    @Test
+    public void count() throws SQLException {
+        dao.deleteAll();
+        assertThat(dao.getCount(), is(0));
 
-		dao.add(user2);
-		assertThat(dao.getCount(), is(2));
+        dao.add(user1);
+        assertThat(dao.getCount(), is(1));
 
-		dao.add(user3);
-		assertThat(dao.getCount(), is(3));
-	}
-	@Test
-	public void getAll()  {
-		dao.deleteAll();
+        dao.add(user2);
+        assertThat(dao.getCount(), is(2));
 
-		List<User> users0 = dao.getAll();
-		assertThat(users0.size(), is(0));
+        dao.add(user3);
+        assertThat(dao.getCount(), is(3));
+    }
 
-		dao.add(user1); // Id: gyumee
-		List<User> users1 = dao.getAll();
-		assertThat(users1.size(), is(1));
-		checkSameUser(user1, users1.get(0));
+    @Test
+    public void getAll() {
+        dao.deleteAll();
 
-		dao.add(user2); // Id: leegw700
-		List<User> users2 = dao.getAll();
-		assertThat(users2.size(), is(2));
-		checkSameUser(user1, users2.get(0));
-		checkSameUser(user2, users2.get(1));
+        List<User> users0 = dao.getAll();
+        assertThat(users0.size(), is(0));
 
-		dao.add(user3); // Id: bumjin
-		List<User> users3 = dao.getAll();
-		assertThat(users3.size(), is(3));
-		checkSameUser(user3, users3.get(0));
-		checkSameUser(user1, users3.get(1));
-		checkSameUser(user2, users3.get(2));
-	}
+        dao.add(user1); // Id: gyumee
+        List<User> users1 = dao.getAll();
+        assertThat(users1.size(), is(1));
+        checkSameUser(user1, users1.get(0));
 
-	private void checkSameUser(User user1, User user2) {
-		assertThat(user1.getId(), is(user2.getId()));
-		assertThat(user1.getName(), is(user2.getName()));
-		assertThat(user1.getPassword(), is(user2.getPassword()));
-	}
+        dao.add(user2); // Id: leegw700
+        List<User> users2 = dao.getAll();
+        assertThat(users2.size(), is(2));
+        checkSameUser(user1, users2.get(0));
+        checkSameUser(user2, users2.get(1));
 
-	@Test(
-			expected = DuplicateKeyException.class
-	)
-	public void duplciateKey() {
-		this.dao.deleteAll();
-		this.dao.add(this.user1);
-		this.dao.add(this.user1);
-	}
-	@Test
-	public void sqlExceptionTranslate() {
-		this.dao.deleteAll();
+        dao.add(user3); // Id: bumjin
+        List<User> users3 = dao.getAll();
+        assertThat(users3.size(), is(3));
+        checkSameUser(user3, users3.get(0));
+        checkSameUser(user1, users3.get(1));
+        checkSameUser(user2, users3.get(2));
+    }
 
-		try {
-			this.dao.add(this.user1);
-			this.dao.add(this.user1);
-		} catch (DuplicateKeyException var5) {
-			SQLException sqlEx = (SQLException)var5.getCause();
-			SQLExceptionTranslator set = new SQLErrorCodeSQLExceptionTranslator(this.dataSource);
-			DataAccessException transEx = set.translate((String)null, (String)null, sqlEx);
-			Assert.assertThat(transEx, CoreMatchers.is(DuplicateKeyException.class));
-		}
 
-	}
+    private void checkSameUser(User user1, User user2) {
+        Assert.assertThat(user1.getId(), CoreMatchers.is(user2.getId()));
+        Assert.assertThat(user1.getName(), CoreMatchers.is(user2.getName()));
+        Assert.assertThat(user1.getPassword(), CoreMatchers.is(user2.getPassword()));
+        Assert.assertThat(user1.getLevel(), CoreMatchers.is(user2.getLevel()));
+        Assert.assertThat(user1.getLogin(), CoreMatchers.is(user2.getLogin()));
+        Assert.assertThat(user1.getRecommend(), CoreMatchers.is(user2.getRecommend()));
+    }
+
+    @Test
+    public void update() {
+        this.dao.deleteAll();
+        this.dao.add(this.user1);
+        this.dao.add(this.user2);
+        this.user1.setName("오민규");
+        this.user1.setPassword("springno6");
+        this.user1.setLevel(Level.GOLD);
+        this.user1.setLogin(1000);
+        this.user1.setRecommend(999);
+        this.dao.update(this.user1);
+        User user1update = this.dao.get(this.user1.getId());
+        this.checkSameUser(this.user1, user1update);
+        User user2same = this.dao.get(this.user2.getId());
+        this.checkSameUser(this.user2, user2same);
+    }
+
+
+    @Test(
+            expected = DuplicateKeyException.class
+    )
+    public void duplciateKey() {
+        this.dao.deleteAll();
+        this.dao.add(this.user1);
+        this.dao.add(this.user1);
+    }
+
+    @Test
+    public void sqlExceptionTranslate() {
+        this.dao.deleteAll();
+
+        try {
+            this.dao.add(this.user1);
+            this.dao.add(this.user1);
+        } catch (DuplicateKeyException var5) {
+            SQLException sqlEx = (SQLException) var5.getCause();
+            SQLExceptionTranslator set = new SQLErrorCodeSQLExceptionTranslator(this.dataSource);
+            DataAccessException transEx = set.translate((String) null, (String) null, sqlEx);
+            Assert.assertThat(transEx, CoreMatchers.is(DuplicateKeyException.class));
+        }
+
+    }
 //	int maxtry = MAX_RETRY;
 //	while(maxtry -- > 0){
 //		try{
@@ -153,7 +176,7 @@ public class UserDaoJdbcTest {
 //	}
 //	throw new RetryFailedException();
 
-//	public void  add() throws SQLException{
+    //	public void  add() throws SQLException{
 //		try {
 //
 //		}catch (SQLException e){
@@ -170,7 +193,7 @@ public class UserDaoJdbcTest {
 //				throw e;
 //		}
 //	}
-	public static void main(String[] args){
-		JUnitCore.main("com.example.spring.user.dao.UserDaoTest");
-	}
+    public static void main(String[] args) {
+        JUnitCore.main("com.example.spring.UserDaoJdbcTest");
+    }
 }
