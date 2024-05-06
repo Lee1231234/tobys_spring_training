@@ -9,7 +9,22 @@
     <bean id="userDao" class="com.example.spring.user.dao.UserDaoJdbc">
         <property name="dataSource" ref="dataSource"/>
     </bean>
+    <!-- 변경이 필요한경우  UserServiceSpecial로 변경 -->
     <bean id="userService" class="com.example.spring.user.Service.UserService">
-        <property name="userDao" ref="userDao"/>
+        <property name="userDao" ref="userDao" />
+        <property name="transactionManager" ref="transactionManager" />
+        <property name="mailSender" ref="mailSender" />
     </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <!--
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="mail.server.com" />
+	</bean>
+	 -->
+    <bean id="mailSender" class="com.example.spring.user.Service.DummyMailSender" />
+
 </beans>
