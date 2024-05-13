@@ -1,0 +1,101 @@
+<mxfile host="app.diagrams.net" modified="2024-05-13T06:19:24.019Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" etag="1ikHvbCjnZ_ihjxaRgTe" version="24.3.1" type="device">
+  <diagram name="페이지-1" id="S1X52Ps6tLRZ30u8aYc5">
+    <mxGraphModel dx="1434" dy="780" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Fru_nZu3uHutdJPuMGCo-1" value="«interface»&lt;br&gt;UserService" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="400" y="100" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Fru_nZu3uHutdJPuMGCo-2" value="UserService" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="400" y="400" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Fru_nZu3uHutdJPuMGCo-3" value="Client&lt;div&gt;(UserServiceTest&lt;span style=&quot;background-color: initial;&quot;&gt;)&lt;/span&gt;&lt;/div&gt;" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="160" y="400" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Fru_nZu3uHutdJPuMGCo-4" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Fru_nZu3uHutdJPuMGCo-3" target="Fru_nZu3uHutdJPuMGCo-2">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="320" y="480" as="sourcePoint" />
+            <mxPoint x="480" y="480" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Fru_nZu3uHutdJPuMGCo-5" value="UserServiceImpl" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="510" y="620" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Fru_nZu3uHutdJPuMGCo-6" value="UserServiceTx" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="290" y="620" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Fru_nZu3uHutdJPuMGCo-7" value="Client&lt;div&gt;(UserServiceTest&lt;span style=&quot;background-color: initial;&quot;&gt;)&lt;/span&gt;&lt;/div&gt;" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="160" y="100" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Fru_nZu3uHutdJPuMGCo-8" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Fru_nZu3uHutdJPuMGCo-7" target="Fru_nZu3uHutdJPuMGCo-1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="260" y="230" as="sourcePoint" />
+            <mxPoint x="390" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Fru_nZu3uHutdJPuMGCo-9" value="UserServiceImpl" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="400" y="210" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Fru_nZu3uHutdJPuMGCo-10" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="Fru_nZu3uHutdJPuMGCo-9" target="Fru_nZu3uHutdJPuMGCo-1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="330" y="300" as="sourcePoint" />
+            <mxPoint x="490" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Fru_nZu3uHutdJPuMGCo-11" value="«interface»&lt;br&gt;UserService" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="400" y="530" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Fru_nZu3uHutdJPuMGCo-12" value="Client&lt;div&gt;(UserServiceTest&lt;span style=&quot;background-color: initial;&quot;&gt;)&lt;/span&gt;&lt;/div&gt;" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="160" y="530" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Fru_nZu3uHutdJPuMGCo-13" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Fru_nZu3uHutdJPuMGCo-12" target="Fru_nZu3uHutdJPuMGCo-11">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="260" y="660" as="sourcePoint" />
+            <mxPoint x="390" y="660" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Fru_nZu3uHutdJPuMGCo-14" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="Fru_nZu3uHutdJPuMGCo-5">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="630" y="540" as="sourcePoint" />
+            <mxPoint x="455" y="580" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="455" y="620" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Fru_nZu3uHutdJPuMGCo-15" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="Fru_nZu3uHutdJPuMGCo-6" target="Fru_nZu3uHutdJPuMGCo-11">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="545" y="630" as="sourcePoint" />
+            <mxPoint x="460" y="600" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="460" y="620" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Fru_nZu3uHutdJPuMGCo-16" value="Client&lt;div&gt;(UserServiceTest&lt;span style=&quot;background-color: initial;&quot;&gt;)&lt;/span&gt;&lt;/div&gt;" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="160" y="760" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Fru_nZu3uHutdJPuMGCo-18" value="UserServiceTx" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="359" y="760" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Fru_nZu3uHutdJPuMGCo-19" value="UserServiceImpl" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="580" y="760" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Fru_nZu3uHutdJPuMGCo-20" value="" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="Fru_nZu3uHutdJPuMGCo-16" target="Fru_nZu3uHutdJPuMGCo-18">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="370" y="900" as="sourcePoint" />
+            <mxPoint x="450" y="900" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Fru_nZu3uHutdJPuMGCo-21" value="" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="Fru_nZu3uHutdJPuMGCo-19">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="470" y="785" as="sourcePoint" />
+            <mxPoint x="560" y="800" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
