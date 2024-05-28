@@ -1,5 +1,6 @@
 package com.example.spring.config;
 
+import com.example.spring.factorybean.MessageFactoryBean;
 import com.example.spring.user.Service.UserServiceImpl;
 import com.example.spring.user.Service.UserServiceTx;
 import org.springframework.context.annotation.Bean;
@@ -22,5 +23,10 @@ public class testconfig {
 //        userServiceImpl.setMailSender(mailSender);
 //        return  userServiceImpl;
 //    }
-
+    @Bean(name = "message")
+    public MessageFactoryBean messageFactory(){
+        MessageFactoryBean factory = new MessageFactoryBean();
+        factory.setText("테스트");
+        return factory;
+    }
 }

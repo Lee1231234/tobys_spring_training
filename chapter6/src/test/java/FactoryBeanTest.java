@@ -10,9 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(
-        locations = {"/FactoryBeanTest_context.xml"}
-)
+@ContextConfiguration
 public class FactoryBeanTest {
     @Autowired
     ApplicationContext context;

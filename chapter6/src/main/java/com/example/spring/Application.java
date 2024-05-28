@@ -1,5 +1,6 @@
 package com.example.spring;
 
+import com.example.spring.config.AppRunner;
 import com.example.spring.user.Service.UserService;
 import com.example.spring.user.Service.UserServiceTx;
 import org.springframework.boot.SpringApplication;
