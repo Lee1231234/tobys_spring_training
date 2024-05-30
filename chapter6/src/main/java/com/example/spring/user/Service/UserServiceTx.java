@@ -5,6 +5,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import java.util.List;
+
 public class UserServiceTx implements UserService {
     UserService userService;
     PlatformTransactionManager transactionManager;
@@ -20,6 +22,26 @@ public class UserServiceTx implements UserService {
 
     public void add(User user) {
         this.userService.add(user);
+    }
+
+    @Override
+    public void deleteAll() {
+
+    }
+
+    @Override
+    public void update(User var1) {
+
+    }
+
+    @Override
+    public User get(String var1) {
+        return null;
+    }
+
+    @Override
+    public List<User> getAll() {
+        return List.of();
     }
 
     public void upgradeLevels() {

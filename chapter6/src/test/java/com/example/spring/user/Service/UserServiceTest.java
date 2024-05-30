@@ -40,7 +40,7 @@ public class UserServiceTest {
     @Autowired
     UserService userService;
     @Autowired
-    UserServiceImpl userServiceImpl;
+    UserService testUserService;
     @Autowired
     UserDao userDao;
     @Autowired
@@ -66,26 +66,23 @@ public class UserServiceTest {
 
 
 
+
     @Test
     public void upgradeLevels() throws Exception {
-
         UserServiceImpl userServiceImpl = new UserServiceImpl();
         MockUserDao mockUserDao = new MockUserDao(this.users);
         userServiceImpl.setUserDao(mockUserDao);
-
         MockMailSender mockMailSender = new MockMailSender();
         userServiceImpl.setMailSender(mockMailSender);
         userServiceImpl.upgradeLevels();
-
         List<User> updated = mockUserDao.getUpdated();
-        Assert.assertThat(updated.size(),CoreMatchers.is(2));
-        checkUserAndLevel(updated.get(0),"joytouch",Level.SILVER);
-        checkUserAndLevel(updated.get(1),"madnite1",Level.GOLD);
-
+        Assert.assertThat(updated.size(), CoreMatchers.is(2));
+        this.checkUserAndLevel((User)updated.get(0), "joytouch", Level.SILVER);
+        this.checkUserAndLevel((User)updated.get(1), "madnite1", Level.GOLD);
         List<String> request = mockMailSender.getRequests();
         Assert.assertThat(request.size(), CoreMatchers.is(2));
-        Assert.assertThat((String) request.get(0), CoreMatchers.is(((User) this.users.get(1)).getEmail()));
-        Assert.assertThat((String) request.get(1), CoreMatchers.is(((User) this.users.get(3)).getEmail()));
+        Assert.assertThat((String)request.get(0), CoreMatchers.is(((User)this.users.get(1)).getEmail()));
+        Assert.assertThat((String)request.get(1), CoreMatchers.is(((User)this.users.get(3)).getEmail()));
     }
 
 
@@ -148,32 +145,22 @@ public class UserServiceTest {
     }
 
     @Test
-    @DirtiesContext
     public void upgradeAllOrNothing() {
-        TestUserService testUserService = new TestUserService(users.get(3).getId());
-        testUserService.setUserDao(this.userDao);
-        testUserService.setMailSender(this.mailSender);
-        TransactionHandler txHandler = new TransactionHandler();
-        txHandler.setTarget(testUserService);
-        txHandler.setTransactionManager(transactionManager);
-        txHandler.setPattern("upgradeLevels");
-        UserService txUserService = (UserService) Proxy.newProxyInstance(getClass().getClassLoader(),new Class[]{UserService.class},txHandler);
-
         this.userDao.deleteAll();
-        Iterator var3 = this.users.iterator();
+        Iterator var2 = this.users.iterator();
 
-        while (var3.hasNext()) {
-            User user = (User) var3.next();
+        while(var2.hasNext()) {
+            User user = (User)var2.next();
             this.userDao.add(user);
         }
 
         try {
-            txUserService.upgradeLevels();
+            this.testUserService.upgradeLevels();
             Assert.fail("TestUserServiceException expected");
-        } catch (TestUserServiceException var4) {
+        } catch (TestUserServiceException var3) {
         }
 
-        this.checkLevelUpgraded((User) this.users.get(1), false);
+        this.checkLevelUpgraded((User)this.users.get(1), false);
     }
 
     static class MockMailSender implements MailSender {
@@ -228,10 +215,9 @@ public class UserServiceTest {
         }
     }
     static class TestUserService extends UserServiceImpl {
-        private String id;
+        private String id = "madnite1";
 
-        private TestUserService(String id) {
-            this.id = id;
+        TestUserService() {
         }
 
         public void upgradeLevel(User user) {
@@ -240,6 +226,17 @@ public class UserServiceTest {
             } else {
                 super.upgradeLevel(user);
             }
+        }
+
+        public List<User> getAll() {
+            Iterator var2 = super.getAll().iterator();
+
+            while(var2.hasNext()) {
+                User user = (User)var2.next();
+                super.update(user);
+            }
+
+            return null;
         }
     }
 

@@ -19,6 +19,8 @@ public class UserServiceImpl implements UserLevelUpgradePolicy,UserService {
 
     private PlatformTransactionManager transactionManager;
 
+    public UserServiceImpl() {
+    }
 
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
@@ -85,5 +87,20 @@ public class UserServiceImpl implements UserLevelUpgradePolicy,UserService {
         }
 
         this.userDao.add(user);
+    }
+    public void deleteAll() {
+        this.userDao.deleteAll();
+    }
+
+    public User get(String id) {
+        return this.userDao.get(id);
+    }
+
+    public List<User> getAll() {
+        return this.userDao.getAll();
+    }
+
+    public void update(User user) {
+        this.userDao.update(user);
     }
 }
