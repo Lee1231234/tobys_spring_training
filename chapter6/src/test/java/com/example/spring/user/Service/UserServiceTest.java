@@ -15,6 +15,7 @@ import org.mockito.Mockito;
 import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.dao.TransientDataAccessResourceException;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -22,6 +23,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
@@ -162,7 +165,22 @@ public class UserServiceTest {
 
         this.checkLevelUpgraded((User)this.users.get(1), false);
     }
+    @Test(
+            expected = TransientDataAccessResourceException.class
+    )
+    public void readOnlyTransactionAttribute() {
+        this.testUserService.getAll();
+    }
 
+    @Test
+    @Transactional(
+            propagation = Propagation.NEVER
+    )
+    public void transactionSync() {
+        this.userService.deleteAll();
+        this.userService.add((User)this.users.get(0));
+        this.userService.add((User)this.users.get(1));
+    }
     static class MockMailSender implements MailSender {
         private List<String> requests = new ArrayList();
 
